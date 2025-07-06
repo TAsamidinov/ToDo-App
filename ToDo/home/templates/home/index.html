@@ -4,12 +4,26 @@
 
 {% block body %}
 
-    <h1>Welcome to the ToDo App</h1>
-    <form>
-        <input type="text" name="task" placeholder="Add New Task" reqi="uired">
-        <input type="date" name="due_date" placeholder="Due Date">
+    <form action="{% url 'home:index' %}" method="post">
+        {% csrf_token %}
+        <label for="task">New Task:</label>
+        <input type="text" name="task" required>
+        <input type="date" name="due_date" required>
         <button type="submit">Add</button>
     </form>
+    <h1>Tasks</h1>
+    {% for task in tasks %}
+        <form action="{% url 'home:finish' %}" method="post">
+            {% csrf_token %}
+            {{ task.task }}
+            {{ task.due_date }}
+            <input type="hidden" name="id" value="{{ task.id }}">
+            <button type="submit" name="action" value="flag">Mark</button>
+            <button type="submit" name="action" value="done">Done</button>
+        </form>
+    {% empty %}
+        <h1>No Tasks.</h1>
+    {% endfor %}
 
 
 {% endblock %}

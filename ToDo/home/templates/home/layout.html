@@ -11,14 +11,17 @@
     </head>
     <body>
         <header>
-            <h1>To Do App</h1>
             <nav>
                 <ul>
-                    <li>Today</a></li>
-                    <li>All</a></li>
-                    <li>Flagged</a></li>
-                    <li>Completed</a></li>
-                    <li>Profile</a></li>
+                    <li><a href="?filter=all">All</a></li>
+                    <li><a href="?filter=today">Today</a></li>
+                    <li><a href="?filter=flagged">Marked</a></li>
+                    <li><a href="?filter=completed">Completed</a></li>
+                    {% if request.session.user_id %}
+                        <li><a href="/logout/">Logout</a></li>
+                    {% else %}
+                        <li><a href="/login/">Login</a></li>
+                    {% endif %}
                 </ul>
             </nav>
         </header>
